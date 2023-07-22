@@ -37,13 +37,14 @@
 
 
 <form method="POST" action="create/">
+    <center>
     {% csrf_token %}
     <table>
         {{ form }}
     </table>
 
     <input type="submit" value="OK" >
-
+    </center>
 
 </form>
 
