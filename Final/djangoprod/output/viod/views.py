@@ -6,10 +6,15 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import addForm
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+
+from .forms import addForm, RegisterForm
 
 # Create your views here.
 from viod.models import Product
+
+
 
 amadeus = Client(
     client_id='H3mCtiSJ944pFTWEhdd5Nr1hoGJDYGzy',
@@ -115,3 +120,14 @@ def index(request):
 @login_required
 def profile_view(request):
     return render(request,'loguser/profile.html')
+
+
+class RegisterView(FormView):
+    form_class = RegisterForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('profile')
+
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

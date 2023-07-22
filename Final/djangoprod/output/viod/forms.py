@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import DateInput
 
 from .models import *
@@ -43,3 +44,7 @@ class addForm(forms.Form):
     cabine = forms.ChoiceField(label='ТИП МЕСТА', choices=Product.grade_list, widget=forms.Select(attrs={'class': 'regDropDown'}))
 
 
+
+class RegisterForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        pass
