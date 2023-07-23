@@ -38,6 +38,7 @@ def autocomplete(request):
             keyword=request.GET.get("term", None), subType=Location.ANY
         ).data
 
+        print(len(data))
         return HttpResponse(get_city_airport_list(data), "application/json")
 
     else:
