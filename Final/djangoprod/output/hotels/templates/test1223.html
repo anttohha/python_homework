@@ -9,36 +9,25 @@
 <p>{{ flight_date }}</p>
 <p>{{ flight_date_reverse }}</p>
 <p>{{ flyfromcity }}</p>
-<p>{{ flytocity }}</p>
-<p>{{ cabine }}</p>
 
-
-
-
+<div> {{ map | safe }}</div>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">id</th>
-      <th scope="col">data_out</th>
-      <th scope="col">data_in</th>
-      <th scope="col">UER</th>
-      <th scope="col">PRICE</th>
-      <th scope="col">duration fly</th>
+      <th scope="col">name</th>
+      <th scope="col">price</th>
     </tr>
   </thead>
     <tbody>
 
-{% for key in dict1.items %}
+{% for key in dict_hotel.items %}
 <tr>
 
       <td>{{ key.1.0 }}</td>
       <td>{{ key.1.1 }}</td>
       <td>{{ key.1.2 }}</td>
       <td>{{ key.1.3 }}</td>
-      <td>{{ key.1.4 }}</td>
-      <td>{{ key.1.5 }}</td>
-      <td>{{ key.1.6 }}</td>
       <td><button class="btn btn-primary" type="button">добавить в корзину</button> </td>
     </tr>
 
@@ -47,6 +36,18 @@
 {% endfor %}
 </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {% endblock content %}

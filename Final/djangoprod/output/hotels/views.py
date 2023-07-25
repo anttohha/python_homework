@@ -1,5 +1,7 @@
 import json
 import ast
+import time
+import folium
 
 from ast import keyword
 from amadeus import Client, ResponseError, Location
@@ -71,17 +73,52 @@ def ok_button(request):
 
             codeairport_sub = flyfromcity.split(',')
 
-            codeairport = codeairport_sub[0]
+            citycode = codeairport_sub[0]
 
 
-            hotel_list = amadeus.reference_data.locations.hotels.by_city.get(cityCode= codeairport_sub[0])
-            print("--------------------------")
-            print(hotel_list[0].data)
+            hotel_list = amadeus.reference_data.locations.hotels.by_city.get(cityCode= citycode).data
+
+
+            dict_hotel = {}
+            map = folium.Map(location=[50.4512, -104.6166], tiles='cartodbpositron', zoom_start=4)
+            for i in range(len(hotel_list)):
+
+                code1 = hotel_list[i]['hotelId']
+                hotels_by_city = amadeus.shopping.hotel_offers_search.get(hotelIds=code1, adults='1',
+                                                                          checkInDate=flight_date,
+                                                                          checkOutDate=flight_date_reverse).data
+
+                if len(hotels_by_city) > 0:
+
+                    print(f'название отеля- ', hotel_list[i]['name'])
+                    print(f'общая стоимость- ', hotels_by_city[0]['offers'][0]['price']['total'])
+                    dict_hotel[i] = [
+                        hotel_list[i]['name'],
+                        hotels_by_city[0]['offers'][0]['price']['total'],
+                        hotels_by_city[0]['hotel']['latitude'],
+                        hotels_by_city[0]['hotel']['longitude'],
+                        folium.Marker([hotels_by_city[0]['hotel']['latitude'],hotels_by_city[0]['hotel']['longitude']]).add_to(map)
+                    ]
+                time.sleep(1)
+
+
+
+        # folium.Marker([49.00315, 2.52003]).add_to(map)
+        # folium.Marker([49.00984, 2.55405]).add_to(map)
+        # folium.Marker([48.9911, 2.51526]).add_to(map)
+        folium.raster_layers.TileLayer('Stamen Terrain').add_to(map)
+        folium.raster_layers.TileLayer('Stamen Toner').add_to(map)
+        folium.raster_layers.TileLayer('Stamen Watercolor').add_to(map)
+        folium.LayerControl().add_to(map)
+
+        map = map._repr_html_()
 
         content = {
             "flight_date": flight_date,
             "flight_date_reverse": flight_date_reverse,
             "flyfromcity": flyfromcity,
+            "dict_hotel":dict_hotel,
+            'map': map,
 
 
         }
