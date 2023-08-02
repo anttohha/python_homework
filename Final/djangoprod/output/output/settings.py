@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'viod.apps.ViodConfig',
     'hotels.apps.HotelsConfig',
-    'order.apps.OrderConfig',
+
 ]
 
 MIDDLEWARE = [

@@ -5,8 +5,9 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.searchhotels, name="hotels"),
-    path('main/', views.autocomplete_hotel, name="autocomplete-hotel"),
+    #path('', views.searchhotels, name="hotels"),
+    #path('main/', views.autocomplete_hotel, name="autocomplete-hotel"),
+    path('main/', views.autocomplete_hotel, name="hotels"),
     path('main/create/', views.ok_button, name='ok_button'),
     path('main/create/okorder/',views.ok_order,name='orderhotel'),
 

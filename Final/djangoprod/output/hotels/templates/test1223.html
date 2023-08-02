@@ -21,16 +21,17 @@
 
 
           <form method="POST" action="okorder/">
+              <p>
               {% csrf_token %}
-              <p>
-                 <label name="name" >{{ key.1.0 }}</label>
+                <p><input type="hidden" name="name" value="{{ key.1.0 }}"/></p>
+                <label>{{ key.1.0 }}</label>
+                <p><input type="hidden" name="price" value="{{ key.1.1 }}"/></p>
+                <label>{{ key.1.1 }}</label>
+                <p><input type="hidden" name="id" value="{{ key.1.2 }}"/></p>
+                <label>{{ key.1.2 }}</label>
 
-                  <input type="hidden" name="Lab" value="{{ key.1.0 }}"/>
-              </p>
-              <p>
-                 <label name="price">{{ key.1.1 }}</label>
-              </p>
                <input type="submit" value="OK" >
+              </p>
           </form>
 
 
