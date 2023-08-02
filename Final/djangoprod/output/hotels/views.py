@@ -126,19 +126,24 @@ def ok_button(request):
 
 def ok_order(request):
     if request.method == "POST":
-        form2 = addformorderhotel(request.POST)
-        if form2.is_valid:
-            date123 = request.POST.get("flight_date")
+        form2 = addformorderhotel()
 
-
-
-
-
-
+        date123 = request.POST.get("name")
+        name2=request.POST.get("Lab")
         contex = {
-        'form': form2,
-        'data123':date123,
+            'form': form2,
+            'data123': date123,
+            'name2':name2,
         }
+
+        print(date123)
+        print(name2)
+
+
+
+
+
+
 
 
     return render(request, 'order/orderhotel.html', context = contex)

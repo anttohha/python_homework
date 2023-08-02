@@ -12,35 +12,34 @@
 
 <div> {{ map | safe }}</div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">name</th>
-      <th scope="col">price</th>
-    </tr>
-  </thead>
-    <tbody>
+
 
 {% for key in dict_hotel.items %}
-<tr>
 
-      <td>{{ key.1.0 }}</td>
-      <td>{{ key.1.1 }}</td>
 
-      <td>
+
+
+
           <form method="POST" action="okorder/">
               {% csrf_token %}
+              <p>
+                 <label name="name" >{{ key.1.0 }}</label>
+
+                  <input type="hidden" name="Lab" value="{{ key.1.0 }}"/>
+              </p>
+              <p>
+                 <label name="price">{{ key.1.1 }}</label>
+              </p>
                <input type="submit" value="OK" >
           </form>
 
-      </td>
-    </tr>
+
+
 
 
 
 {% endfor %}
-</tbody>
-</table>
+
 
 
 
