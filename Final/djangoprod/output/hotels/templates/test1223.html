@@ -26,9 +26,14 @@
 
       <td>{{ key.1.0 }}</td>
       <td>{{ key.1.1 }}</td>
-      <td>{{ key.1.2 }}</td>
-      <td>{{ key.1.3 }}</td>
-      <td><button class="btn btn-primary" type="button">добавить в корзину</button> </td>
+
+      <td>
+          <form method="POST" action="okorder/">
+              {% csrf_token %}
+               <input type="submit" value="OK" >
+          </form>
+
+      </td>
     </tr>
 
 

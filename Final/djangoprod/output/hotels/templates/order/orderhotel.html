@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+
+<table border="0" style="border-collapse: collapse; width: 100%;">
+<tbody>
+<tr>
+<td style="width: 50%;">
+   <form method="POST" action="okorder/">
+    <center>
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+ <input type="submit" value="OK" >
+
+    </center>
+
+</form>
+
+
+</td>
+<td style="width: 50%;">
+    <h4> {{ data123 }} </h4>
+
+
+
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

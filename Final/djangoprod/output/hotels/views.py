@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from .forms import addFormHotel
-
+from .formorder_hotel import addformorderhotel
 
 # Create your views here.
 amadeus = Client(
@@ -95,9 +95,8 @@ def ok_button(request):
                     dict_hotel[i] = [
                         hotel_list[i]['name'],
                         hotels_by_city[0]['offers'][0]['price']['total'],
-                        hotels_by_city[0]['hotel']['latitude'],
-                        hotels_by_city[0]['hotel']['longitude'],
-                        folium.Marker([hotels_by_city[0]['hotel']['latitude'],hotels_by_city[0]['hotel']['longitude']]).add_to(map)
+
+                        folium.Marker([hotels_by_city[0]['hotel']['latitude'],hotels_by_city[0]['hotel']['longitude']], popup=hotel_list[i]['name']).add_to(map)
                     ]
                 time.sleep(1)
 
@@ -122,5 +121,24 @@ def ok_button(request):
 
 
         }
-
     return render(request, 'test1223.html', context=content)
+
+
+def ok_order(request):
+    if request.method == "POST":
+        form2 = addformorderhotel(request.POST)
+        if form2.is_valid:
+            date123 = request.POST.get("flight_date")
+
+
+
+
+
+
+        contex = {
+        'form': form2,
+        'data123':date123,
+        }
+
+
+    return render(request, 'order/orderhotel.html', context = contex)
