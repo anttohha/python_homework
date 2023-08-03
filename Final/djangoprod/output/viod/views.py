@@ -148,6 +148,9 @@ def ok_order(request):
         codeairport_start = codeairport_sub[0]
         codeairport_end = codeairportend_sub[0]
 
+        placein = codeairport_sub[1]
+        placeout = codeairportend_sub[1]
+
         departureDatefly = data_in[0:10]
 
         flightorder = amadeus.shopping.flight_offers_search.get(originLocationCode=codeairport_start,
@@ -155,15 +158,23 @@ def ok_order(request):
                                                                 departureDate=departureDatefly, adults=1,
                                                                 travelClass=cabine).data
 
-
-
-
         k1 = len(flightorder)
         for i in range(0, k1):
-            if (flightorder[i].get("id"))==id:
-                print(flightorder[i]['itineraries'][0]['segments'][0]['departure']['terminal'])
-                
-                print(flightorder[i]['itineraries'][0]['duration'])
+            if (flightorder[i].get("id")) == id:
+                datain = flightorder[i]['itineraries'][0]['segments'][0]['departure']['at']
+
+                dataout = flightorder[i]['itineraries'][0]['segments'][0]['arrival']['at']
+                corridorin = flightorder[i]['itineraries'][0]['segments'][0]['carrierCode']
+                aircraft = flightorder[i]['itineraries'][0]['segments'][0]['aircraft']['code']
+                datain1 = datain[0: 10]
+                time1 = datain[11:19]
+                dataout2 = dataout[0:10]
+                timeout2 = dataout[11:19]
+
+                corridorout = flightorder[i]['itineraries'][0]['segments'][0]['carrierCode']
+                typemoney = flightorder[i]['price']['currency']
+                allmonet = flightorder[i]['price']['total']
+                aircraftNumber = flightorder[i]['itineraries'][0]['segments'][0]['number']
 
 
         contex = {
@@ -174,6 +185,18 @@ def ok_order(request):
             'data_out': data_out,
             'data_in': data_in,
             'cabine': cabine,
+            'placein': placein,
+            'placeout': placeout,
+            'corridorin': corridorin,
+            'datain1': datain1,
+            'time1': time1,
+            'aircraft': aircraft,
+            'dataout2': dataout2,
+            'timeout2': timeout2,
+            'corridorout':corridorout,
+            'typemoney':typemoney,
+            'allmonet':allmonet,
+            'aircraftNumber':aircraftNumber,
 
         }
 

@@ -15,23 +15,17 @@ class addForm(forms.Form):
         )
     )
 
-    flight_date_reverse = forms.DateField(
-        label='Когда обратно',
-        widget=DateInput(
-            attrs={
-                'type': 'date',
-            }
-        )
-    )
 
-    flyfromcity = forms.CharField(widget=forms.TextInput(attrs={
+
+    flyfromcity = forms.CharField(label='Место вылета', widget=forms.TextInput(attrs={
         'size': '40',
         'name': "product",
         'id': "product",
 
+
     }))
 
-    flytocity = forms.CharField(widget=forms.TextInput(attrs={
+    flytocity = forms.CharField(label='Место прилёта',widget=forms.TextInput(attrs={
         'size': '40',
         'name': "product2",
         'id': "product2",
