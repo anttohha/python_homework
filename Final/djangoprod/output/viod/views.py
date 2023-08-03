@@ -10,11 +10,9 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from .forms import addForm, RegisterForm
-
+from .orderform import addformorderfly
 # Create your views here.
 from viod.models import Product
-
-
 
 amadeus = Client(
     client_id='H3mCtiSJ944pFTWEhdd5Nr1hoGJDYGzy',
@@ -77,7 +75,6 @@ def ok_button(request):
 
             print(flights[0])
 
-
             dataa = []
             k1 = len(flights)
             for i in range(0, k1):
@@ -100,7 +97,7 @@ def ok_button(request):
 
                 ]
 
-        #print(new_dict)
+        # print(new_dict)
 
         content = {
             "flight_date": flight_date,
@@ -116,14 +113,13 @@ def ok_button(request):
     return render(request, 'core/test1223.html', context=content)
 
 
-
 def index(request):
     return render(request, "default.html")
 
 
 @login_required
 def profile_view(request):
-    return render(request,'loguser/profile.html')
+    return render(request, 'loguser/profile.html')
 
 
 class RegisterView(FormView):
@@ -131,7 +127,54 @@ class RegisterView(FormView):
     template_name = 'registration/register.html'
     success_url = reverse_lazy('profile')
 
-
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+def ok_order(request):
+    if request.method == "POST":
+        formorderfly = addformorderfly()
+        id = request.POST.get("id")
+        portin = request.POST.get("portin")
+        portout = request.POST.get("portout")
+        data_out = request.POST.get("data_out")
+        data_in = request.POST.get("data_in")
+        cabine = request.POST.get("cabine")
+        PRICE = request.POST.get("PRICE")
+
+        codeairport_sub = portin.split(',')
+        codeairportend_sub = portout.split(',')
+        codeairport_start = codeairport_sub[0]
+        codeairport_end = codeairportend_sub[0]
+
+        departureDatefly = data_in[0:10]
+
+        flightorder = amadeus.shopping.flight_offers_search.get(originLocationCode=codeairport_start,
+                                                                destinationLocationCode=codeairport_end,
+                                                                departureDate=departureDatefly, adults=1,
+                                                                travelClass=cabine).data
+
+
+
+
+        k1 = len(flightorder)
+        for i in range(0, k1):
+            if (flightorder[i].get("id"))==id:
+                print(flightorder[i]['itineraries'][0]['segments'][0]['departure']['terminal'])
+                
+                print(flightorder[i]['itineraries'][0]['duration'])
+
+
+        contex = {
+            'formorderfly': formorderfly,
+            'PRICE': PRICE,
+            'portin': portin,
+            'portout': portout,
+            'data_out': data_out,
+            'data_in': data_in,
+            'cabine': cabine,
+
+        }
+
+    return render(request, 'order/orderfly.html', context=contex)
