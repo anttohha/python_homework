@@ -75,6 +75,9 @@ def ok_button(request):
                                                                 departureDate=flight_date, adults=1,
                                                                 travelClass=cabine).data
 
+            print(flights[0])
+
+
             dataa = []
             k1 = len(flights)
             for i in range(0, k1):
@@ -97,7 +100,7 @@ def ok_button(request):
 
                 ]
 
-        print(new_dict)
+        #print(new_dict)
 
         content = {
             "flight_date": flight_date,
