@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+
+<table border="0" style="border-collapse: collapse; width: 100%;">
+<tbody>
+<tr>
+<td style="width: 50%;">
+   <form method="POST" action="okorder/">
+    <center>
+    {% csrf_token %}
+    <table>
+        {{ formorderfly }}
+    </table>
+ <input type="submit" value="OK" >
+
+    </center>
+
+</form>
+
+
+</td>
+<td style="width: 50%;">
+    <table border="1" style="border-collapse: collapse; width: 100%; height: 36px;">
+<tbody>
+<tr style="height: 18px;">
+<td style="width: 50%; text-align: center; height: 18px;">Вылет</td>
+<td style="width: 50%; text-align: center; height: 18px;">Прилёт</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 50%; height: 18px;">
+<p>Место: {{ placein }}</p>
+<p>Дата {{ datain1 }}:</p>
+<p>Время: {{ time1 }}</p>
+<p>Коридор:  {{ corridorin }}</p>
+</td>
+<td style="width: 50%; height: 18px;">
+<p>Место: {{ placeout }}</p>
+<p>Дата: {{ dataout2 }}:</p>
+<p>Время: {{ timeout2 }}</p>
+<p>Коридор: {{ corridorout }}</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Цена: {{ allmonet }} {{ typemoney }}</p>
+<p>Класс: {{ cabine }}</p>
+<p>Самолёт:  № {{ aircraftNumber }}</p>
+<p></p>
+
+
+
+
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
